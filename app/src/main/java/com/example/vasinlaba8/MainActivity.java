@@ -61,12 +61,22 @@ public class MainActivity extends AppCompatActivity {
     }
     ActivityResultLauncher<ScanOptions> imageCaptureLauncher = registerForActivityResult(
             new ScanContract(),result -> {
-                if (result.getContents()!=null){
-                    AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Результат");
-                    builder.setMessage(result.getContents());
-
-                    builder.show();
+                if (result.getContents()!=null && result.getContents().equals("cat")){
+                    Intent intent = new Intent(getApplicationContext(),CatActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                } else {
+                    if (result.getContents()!=null && result.getContents().equals("anime")){
+                        Intent intent = new Intent(getApplicationContext(),MainActivity2.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                    } else {
+                        if (result.getContents()!=null && result.getContents().equals("dog")){
+                            Intent intent = new Intent(getApplicationContext(),DogActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
+                        }
+                    }
                 }
             }
     );
